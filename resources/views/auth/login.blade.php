@@ -25,16 +25,16 @@
                     <h1 class="h3 mb-3 fw-normal">Inicio</h1>
     
                     <div class="form-floating">
-                        <input id="username" name="username" class="form-control" id="floatingInput" placeholder="v00000000" value="{{ old('username') }}" autofocus>
+                        <input id="username" name="username" class="form-control @error('username') is-invalid @enderror" id="floatingInput" placeholder="v00000000" value="{{ old('username') }}" autofocus>
                         <label for="floatingInput">Usuario</label>
                         @error('username')
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
+                            <strong>Error, contraseña o usuario incorrecto.</strong>
                         </span>
                         @enderror
                     </div>
                     <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="contraseña" name="password" value="{{ old('password') }}">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="floatingPassword" placeholder="contraseña" name="password" value="{{ old('password') }}">
                         <label for="floatingPassword" >Contraseña</label>
                         @error('password')
                         <span class="invalid-feedback" role="alert">
@@ -53,70 +53,6 @@
                 </form>
             
 
-
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-header">{{ __('Inicio') }}</div>
-
-                            <div class="card-body">
-                                <form method="POST" action="{{ route('login') }}">
-                                    @csrf
-
-                                    <div class="row mb-3">
-                                        <label for="username" class="col-md-4 col-form-label text-md-end">{{ __('Usuario') }}</label>
-
-                                        <div class="col-md-6">
-                                            <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
-
-                                            @error('username')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Contraseña') }}</label>
-
-                                        <div class="col-md-6">
-                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                            @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <div class="col-md-6 offset-md-4">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                                <label class="form-check-label" for="remember">
-                                                    {{ __('Recordar') }}
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-0">
-                                        <div class="col-md-8 offset-md-4">
-                                            <button type="submit" class="btn btn-primary">
-                                                {{ __('Iniciar') }}
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </main>
         <script src="{{asset('bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 </body>

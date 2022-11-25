@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+
+use function GuzzleHttp\Promise\exception_for;
 
 class UsuariosController extends Controller
 {
@@ -17,7 +20,7 @@ class UsuariosController extends Controller
     public function usuarios()
     {
         $Usuarios =  User::all();
-        return view('auth.usuarios', compact('Usuarios'));
+        return response()->json($Usuarios);
     }
     public function crear_formulario()
     {
@@ -39,7 +42,7 @@ class UsuariosController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator->errors());
+                return response()->json([$validator->errors()]);
             }
             User::create([
                 'name' => $input['name'],
@@ -48,10 +51,10 @@ class UsuariosController extends Controller
                 'rol' => $input['rol'],
                 'password' => Hash::make($input['password']),
             ]);
-            return redirect()->back()->with('name', 'excelente');
+            return response()->json('excelente');
         } else {
-            var_dump('hlaa');
-            return redirect()->back()->withErrors(['password' => 'Las claves no son iguales']);
+            
+            return response()->json('error');
         }
     }
     public function actualizarPerfil(Request $request)
@@ -59,48 +62,54 @@ class UsuariosController extends Controller
         $user           = Auth::user();
         $userId         = $user->id;
         $userEmail      = $user->email;
-        $userPassword   = $user->password;/* 
-        dd($request->all()); */
-        if ($request->input('clave_vieja') != "") {
-            $nueva_clave   = $request->clave;
-            $confirmacion_clave = $request->confirmacion_clave;
+        $userPassword   = $user->password;
 
-            if (Hash::check($request->input('clave_vieja'), $userPassword)) {
+        /*  dd($request->all()); */
 
+        try {
 
-                if ($nueva_clave  == $confirmacion_clave) {
+            if ($request->input('clave_vieja') != "") {
+                $nueva_clave   = $request->clave;
+                $confirmacion_clave = $request->confirmacion_clave;
 
-                    $actualizar = User::find($userId);
-                    $actualizar->name = $request->input('nombre');
-                    $actualizar->rol = $request->input('rol');
-                    $actualizar->email = $request->input('email');
-                    $actualizar->username = $request->input('username');
-                    $actualizar->password = Hash::make($request->input('clave'));
-                    $actualizar->update();
+                if (Hash::check($request->input('clave_vieja'), $userPassword)) {
 
-                    return redirect()->back()->with('Clave', 'La clave fue cambiada correctamente.');
+                    if ($nueva_clave  == $confirmacion_clave) {
+                        $actualizar = User::find($userId);
+                        $actualizar->name = $request->input('nombre');
+                        $actualizar->rol = $request->input('rol');
+                        $actualizar->email = $request->input('email');
+                        $actualizar->username = $request->input('username');
+                        $actualizar->password = Hash::make($request->input('clave'));
+                        $actualizar->update();
+
+                        return redirect()->back()->with('Clave', 'La clave fue cambiada correctamente.');
+                    } else {
+                        return redirect()->back()->withErrors(['clave' => 'No son iguales']);
+                    }
                 } else {
-                    return redirect()->back()->withErrors(['clave' => 'No son iguales']);
+                    return back()->withErrors(['clave_vieja' => 'La clave no es correcta.']);
                 }
             } else {
-                return back()->withErrors(['clave_vieja' => 'La clave no es correcta.']);
-            }
-        } else {
-            $update = User::find($userId);
-            $update->name = $request->input('nombre');
-            $update->email = $request->input('email');
-            $update->username = $request->input('username');
-            if ($request->input('rol') != null) {
-                $update->rol = $request->input('rol');
-            }
+                $update = User::find($userId);
+                $update->name = $request->input('nombre');
+                $update->email = $request->input('email');
+                $update->username = $request->input('username');
+                if ($request->input('rol') != null) {
+                    $update->rol = $request->input('rol');
+                }
 
-            $update->update();
-            return redirect()->back()->with('nombre', 'El nombre fue cambiado correctamente.');;
+                $update->update();
+                return redirect()->back()->with(['nombre' => 'El nombre fue cambiado correctamente.']);
+            }
+        } catch (Exception $e) {
+            return redirect()->back()->with(['error' => 'inténtalo más tarde.']);
         }
     }
     public function usuarios_vista($id)
     {
         $usuario =  User::find($id);
+
         return view('auth.usuario_actualizar', compact('usuario'));
     }
 
@@ -143,8 +152,8 @@ class UsuariosController extends Controller
     public function borrar_usuario($id)
     {
         $dato = User::find($id);
+        return response()->json(['msg' => 'excelente']);
         if ($dato->delete()) {
-            return response()->json(['msg' => 'Bien']);
         } else {
             return response()->json(['msg' => 'Error']);
         }

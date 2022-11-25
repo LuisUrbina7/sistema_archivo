@@ -11,8 +11,8 @@ class DireccionController extends Controller
 {
     public function index()
     {
-        $direcciones = Direccion::orderBy('id','desc')->paginate('4');
-        return view('direccion.principal',compact('direcciones'));
+        $direcciones = Direccion::orderBy('id', 'desc')->paginate('4');
+        return view('direccion.principal', compact('direcciones'));
     }
 
     public function formulario_crear()
@@ -29,8 +29,8 @@ class DireccionController extends Controller
         ]);
 
         if ($validator->fails()) {
-          
-            return redirect()->back()->withErrors($validator->errors());
+            return response()->json(['msg' => 'Validacion']);
+            /*  return redirect()->back()->withErrors($validator->errors()); */
         }
         try {
 
@@ -39,9 +39,9 @@ class DireccionController extends Controller
                 'encargado' => $request->input('encargado'),
                 'idUsuario' => $request->input('idUsuario'),
             ]);
-            return redirect()->back()->with(['correcto'=>'Datos Guardados correctamente.']);
+            return response()->json(['msg' => 'excelente']);
         } catch (Exception $e) {
-            return redirect()->back()->with(['error'=>'Existe un problema en los registro.']);
+            return response()->json(['msg' => 'error']);
         }
     }
     public function formulario_actualizar($id)
@@ -50,31 +50,33 @@ class DireccionController extends Controller
         return view('', compact('datos'));
     }
 
-    public function actualizar(Request $request,$id){
-        
+    public function actualizar(Request $request, $id)
+    {
+
         $dato = Direccion::find($id);
 
-        $validator  = Validator::make($request, [
-            'direccion' => ['required', 'string', 'max:255', 'unique:direcciones'],
+        $validator  = Validator::make($request->all(), [
             'encargado' => ['required', 'string', 'max:255'],
             'idUsuario' => ['required', 'max:255'],
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors([$validator->errors()]);
+            return response()->json([$validator->errors()]);
         }
         try {
 
-            $dato->direccion = $request->input('direccion');
+            if($dato->direccion != $request->input('direccion'));
+            {
+                $dato->direccion = $request->input('direccion');
+            }
             $dato->encargado = $request->input('encargado');
             $dato->idUsuario = $request->input('idUsuario');
             $dato->save();
 
-            return redirect()->back()->with(['correcto','Datos Guardados correctamente.']);
+            return response()->json(['msg' => 'excelente']);
         } catch (Exception $e) {
-            return redirect()->back()->with(['Error','Existe un problema en los registro.']);
+            return response()->json(['msg' => 'error']);
         }
-
     }
 
     public function borrar($id)
@@ -84,9 +86,9 @@ class DireccionController extends Controller
             $datos = Direccion::find($id);
             $datos->delete();
 
-            return response()->json(['msg', 'Borrado correctamente']);
+            return response()->json(['msg'=> 'excelente']);
         } catch (Exception $e) {
-            return response()->json(['msg', 'Error, intentalo más tarde.']);
+            return response()->json(['msg'=>'error']);
         }
     }
 }

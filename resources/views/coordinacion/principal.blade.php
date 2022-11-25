@@ -4,13 +4,13 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<title>Direccion</title>
+<title>Coordinacion</title>
 
 @endsection
 
 @section('contenido')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Direcciones</h1>
+    <h1 class="h2">Coordinaciones</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
             <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#Modal-agregar">
@@ -38,25 +38,30 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Direccion</th>
+                    <th scope="col">Coordinacion</th>
                     <th scope="col">Encargado</th>
+                    <th scope="col">Creador</th>
                     <th scope="col">Editar</th>
                     <th scope="col">Eliminar</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($direcciones as $direccion)
+               
+
+                @foreach($coordinaciones as $coordinacion)
+             
                 <tr>
-                    <th scope="row"></th>
-                    <td>{{$direccion->direccion}}</td>
-                    <td>{{$direccion->encargado}}</td>
-                    <td><a href="{{route('direccion.crear')}}" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#Modal-actualizar" onclick="indice('{{$direccion->id}},{{$direccion->direccion}},{{$direccion->encargado}}')">Editar</a></td>
-                    <td><a href="{{route('direccion.borrar',$direccion->id)}}" class="btn btn-danger" onclick="borrar(this)">Borrar</a></td>
+                    <th scope="row">{{$coordinacion->id}}</th>
+                    <td>{{$coordinacion->coordinacion}}</td>
+                    <td>{{$coordinacion->encargado}}</td>
+                    <td><span class="badge bg-secondary">{{$coordinacion->Usuario->name}}</span> </td>
+                    <td><a href="{{route('coordinacion.crear')}}" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#Modal-actualizar" onclick="indice('{{$coordinacion->id}},{{$coordinacion->coordinacion}},{{$coordinacion->encargado}}')">Editar</a></td>
+                    <td><a href="{{route('coordinacion.borrar',$coordinacion->id)}}" class="btn btn-danger" onclick="borrar(this)">Borrar</a></td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-        {{$direcciones->links()}}
+        {{$coordinaciones->links()}}
     </div>
 </section>
 
@@ -74,8 +79,8 @@
                         @csrf
                         <input type="hidden" name="idUsuario" value="{{ Auth::user()->id }}">
                         <div class="col-12">
-                            <label for="direccion">Direccion</label>
-                            <input type="text" class="form-control" placeholder="Nombre único" name="direccion" required>
+                            <label for="coordinacion">Coordinacion</label>
+                            <input type="text" class="form-control" placeholder="Nombre único" name="coordinacion" required>
                         </div>
                         <div class="col-12">
                             <label for="encargado">Responsable</label>
@@ -107,8 +112,8 @@
                         @csrf
                         <input type="hidden" name="idUsuario" value="{{ Auth::user()->id }}">
                         <div class="col-12">
-                            <label for="direccion">Direccion</label>
-                            <input type="text" class="form-control" id="direccion" placeholder="Nombre único" name="direccion" required>
+                            <label for="coordinacion">coordinacion</label>
+                            <input type="text" class="form-control" id="coordinacion" placeholder="Nombre único" name="coordinacion" required>
 
                         </div>
                         <div class="col-12">
@@ -142,13 +147,15 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
+       
         $.ajax({
             type: 'POST',
-            url: "{{route('direccion.crear')}}",
+            url: "{{route('coordinacion.crear')}}",
             data: datos,
             dataType: 'json',
             success: function(response) {
-                console.log(response.msg);
+                console.log(response);
                 if (response.msg == 'excelente') {
                     $('#Modal-agregar').hide();
                     Swal.fire(
@@ -210,10 +217,10 @@
 
     function indice(ref) {
         var vector = ref.split(',');
-        let indice = "{{route('direccion.actualizar',0)}}";
+        let indice = "{{route('coordinacion.actualizar',0)}}";
         let nuevo_indice = indice.replace('0', vector[0]);
 
-        $('#direccion').val(vector[1]);
+        $('#coordinacion').val(vector[1]);
         $('#responsable').val(vector[2]);
 
         $('#formulario_actualizar').attr('action', nuevo_indice);

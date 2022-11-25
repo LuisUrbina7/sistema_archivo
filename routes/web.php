@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CoordinacionController;
 use App\Http\Controllers\DireccionController;
 use App\Http\Controllers\UsuariosController;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,13 @@ Route::get('/usuarios/borrar/{id}', [UsuariosController::class, 'borrar_usuario'
 Route::get('/direccion',[DireccionController::class,'index'])->name('direccion');
 Route::get('/direccion/formulario-crear',[DireccionController::class,'formulario_crear'])->name('direccion.formulario.crear');
 Route::post('/direccion/crear',[DireccionController::class,'crear'])->name('direccion.crear');
+Route::post('/direccion/actualizar/{id}',[DireccionController::class,'actualizar'])->name('direccion.actualizar');
+Route::get('/direccion/borrar/{id}',[DireccionController::class,'borrar'])->name('direccion.borrar');
+
+Route::get('/coordinacion',[CoordinacionController::class,'index'])->name('coordinacion');
+Route::post('/coordinacion/crear',[CoordinacionController::class,'crear'])->name('coordinacion.crear');
+Route::post('/coordinacion/actualizar/{id}',[CoordinacionController::class,'actualizar'])->name('coordinacion.actualizar');
+Route::get('/coordinacion/borrar/{id}',[CoordinacionController::class,'borrar'])->name('coordinacion.borrar');
 
 
 
