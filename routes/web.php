@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\CoordinacionController;
 use App\Http\Controllers\DireccionController;
+use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\UsuariosController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +58,8 @@ Route::post('/archivo/agregar-detalles/', [ArchivoController::class, 'agregar_de
 Route::post('/archivo/actualizar-detalles/actualizar/{id}', [ArchivoController::class, 'actualizar_detalles'])->name('archivo.detalles.actualizar');
 Route::get('/archivo/actualizar-detalles/borrar/{id}', [ArchivoController::class, 'borrar_detalles'])->name('archivo.detalles.borrar');
 
-
+Route::get('/reportes/direccion',[ReportesController::class,'index_direcciones'])->name('reporte.direccion');
+Route::get('/reportes/direccion/consulta/{nombre}/{fecha1}/{fecha2}',[ReportesController::class,'direcciones_consulta'])->name('reporte.direccion.consulta');
+Route::get('/reportes/direccion/pdf/{nombre}/{fecha1}/{fecha2}',[ReportesController::class,'direcciones_pdf'])->name('reporte.direccion.pdf');
 
 Route::get('/menu', [App\Http\Controllers\HomeController::class, 'index'])->name('menu');

@@ -48,12 +48,11 @@
             </div>
             <div class="col-md-6">
                 <label for="coordinacion " class="form-label">Coordinacion<span class="text-danger">*</span></label>
-                <select id="inputState" class="form-select @error('direccion') is-invalid @enderror" " name="coordinacion">
+                <select id="inputState" class="form-select @error('coordinacion') is-invalid @enderror"  name="coordinacion">
                     <option disabled selected>---seleccione---</option>
                     @foreach($coordinaciones as $coordinacion)
                     <option value="{{$coordinacion->id}}">{{$coordinacion->coordinacion}}</option>
                     @endforeach
-                   
                 </select>
             </div>
             <div class="col-12">
