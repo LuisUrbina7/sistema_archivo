@@ -34,37 +34,37 @@
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">
-                            <i class="las la-home fs-4"></i>
+                            <a class="nav-link active" aria-current="page" href="{{route('menu')}}">
+                                <i class="las la-home fs-4"></i>
                                 Inicio
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                            <i class="las la-archive fs-4"></i>
+                            <a class="nav-link" href="{{route('archivo')}}">
+                                <i class="las la-archive fs-4"></i>
                                 Archivo
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('direccion')}}">
-                            <i class="las la-sitemap fs-4"></i>
-                               Direcciones
+                                <i class="las la-sitemap fs-4"></i>
+                                Direcciones
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('coordinacion')}}">
-                            <i class="las la-globe fs-4"></i>
+                                <i class="las la-globe fs-4"></i>
                                 Coordinaciones
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('perfil')}}">
-                            <i class="las la-user-cog fs-4"></i>
+                                <i class="las la-user-cog fs-4"></i>
                                 Usuarios
                             </a>
                         </li>
-                        
-                      
+
+
                     </ul>
 
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -76,38 +76,57 @@
                     <ul class="nav flex-column mb-2">
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                            <i class="las la-file-alt fs-4"></i>
+                                <i class="las la-file-alt fs-4"></i>
                                 Reportes por Año
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                            <i class="las la-file-alt fs-4"></i>
+                                <i class="las la-file-alt fs-4"></i>
                                 Reportes por dirección
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                            <i class="las la-file-alt fs-4"></i>
+                                <i class="las la-file-alt fs-4"></i>
                                 Reportes por Coordinacion
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                            <i class="las la-plus fs-4"></i>
-                                 Mas
+                                <i class="las la-plus fs-4"></i>
+                                Mas
                             </a>
                         </li>
                     </ul>
+
+                </div>
+                <div class="position-relative h-100 ">
+                    <div class="position-absolute w-100" style="top: 90px;">
+                        <div class="dropdown">
+                            <a class="btn btn-secondary dropdown-toggle w-100" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ Auth::user()->name}}
+                            </a>
+
+                            <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                       document.getElementById('logout-form').submit();">{{ __('Salir') }}
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </nav>
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-              
+
 
                 @yield('contenido')
 
-                
+
             </main>
         </div>
     </div>

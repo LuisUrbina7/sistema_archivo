@@ -19,7 +19,7 @@ class CreateArchivosDetallesTable extends Migration
             $table->string('documento');
             $table->integer('folios');
             $table->string('solicitud');
-            $table->boolean('ap');
+            $table->char('ap',50);
             $table->timestamps();
         });
     }

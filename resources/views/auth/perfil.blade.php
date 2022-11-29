@@ -37,10 +37,10 @@
     <h1 class="h2">Usuarios</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-            <a href="" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#Modal-agregar">
+            <a class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#Modal-agregar">
                 <i class="las la-user-plus fs-2"></i>
             </a>
-            <a href="" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#Modal-listar">
+            <a  class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#Modal-listar">
                 <i class="las la-list-ul fs-2"></i>
             </a>
         </div>
@@ -236,6 +236,9 @@
         </div>
     </div>
 </div>
+
+<!-- -----modal roles----- -->
+
 @endsection
 
 @section('js')

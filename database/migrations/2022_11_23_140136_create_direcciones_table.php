@@ -17,7 +17,7 @@ class CreateDireccionesTable extends Migration
             $table->id();
             $table->string('direccion')->unique();
             $table->string('encargado');
-            $table->foreignId('idUsuario')->constrained('users')->cascadeOnUpdate();
+            $table->foreignId('idUsuario')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }

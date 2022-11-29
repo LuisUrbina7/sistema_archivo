@@ -42,8 +42,10 @@ body {
   bottom: 0;
   /* rtl:remove */
   left: 0;
-  z-index: 100; /* Behind the navbar */
-  padding: 48px 0 0; /* Height of navbar */
+  z-index: 100;
+  /* Behind the navbar */
+  padding: 48px 0 0;
+  /* Height of navbar */
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 
@@ -59,7 +61,8 @@ body {
   height: calc(100vh - 48px);
   padding-top: .5rem;
   overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  overflow-y: auto;
+  /* Scrollable contents if viewport is shorter than content. */
 }
 
 .sidebar .nav-link {
@@ -118,4 +121,30 @@ body {
 .form-control-dark:focus {
   border-color: transparent;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+
+/* -----pagina principal panel------ */
+
+.contenedor-carta {
+  padding: 5px 10px;
+  border-radius: 5px;
+  height: 120px;
+  overflow: hidden;
+  color: rgb(243, 243, 243);
+  background-color: #003785;
+}
+.contenedor-carta .cuerpo-texto {
+  padding: 5px 10px;
+}
+.contenedor-carta .cuerpo-texto h1,p {
+ margin-bottom: 0;
+}
+
+/* -----formulario archivo-------- */
+.formulario-oculto{
+  display: none;
+}
+
+.formulario-visible{
+  display: flex;
 }

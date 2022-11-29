@@ -16,4 +16,16 @@ class Archivo extends Model
     public function Detalles(){
         return $this->hasMany(Archivos_detalles::class);
     }
+    public function Direccion(){
+        return $this->belongsTo(Direccion::class,'direccion');
+    }
+    public function Coordinacion(){
+        return $this->belongsTo(Coordinacion::class,'coordinacion');
+    }
+    public function Periodo(){
+        return $this->belongsTo(Periodo::class,'id_periodo');
+    }
+    public function Usuario(){
+        return $this->belongsTo(User::class,'recibido');
+    }
 }

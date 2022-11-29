@@ -55,8 +55,8 @@
                     <td>{{$coordinacion->coordinacion}}</td>
                     <td>{{$coordinacion->encargado}}</td>
                     <td><span class="badge bg-secondary">{{$coordinacion->Usuario->name}}</span> </td>
-                    <td><a href="{{route('coordinacion.crear')}}" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#Modal-actualizar" onclick="indice('{{$coordinacion->id}},{{$coordinacion->coordinacion}},{{$coordinacion->encargado}}')">Editar</a></td>
-                    <td><a href="{{route('coordinacion.borrar',$coordinacion->id)}}" class="btn btn-danger" onclick="borrar(this)">Borrar</a></td>
+                    <td><a href="{{route('coordinacion.crear')}}" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#Modal-actualizar" onclick="indice('{{$coordinacion->id}},{{$coordinacion->coordinacion}},{{$coordinacion->encargado}}')"><i class="las la-edit"></i></a></td>
+                    <td><a href="{{route('coordinacion.borrar',$coordinacion->id)}}" class="btn btn-danger" onclick="borrar(this)"><i class="las la-broom"></i></a></td>
                 </tr>
                 @endforeach
             </tbody>

@@ -50,8 +50,8 @@
                     <th scope="row"></th>
                     <td>{{$direccion->direccion}}</td>
                     <td>{{$direccion->encargado}}</td>
-                    <td><a href="{{route('direccion.crear')}}" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#Modal-actualizar" onclick="indice('{{$direccion->id}},{{$direccion->direccion}},{{$direccion->encargado}}')">Editar</a></td>
-                    <td><a href="{{route('direccion.borrar',$direccion->id)}}" class="btn btn-danger" onclick="borrar(this)">Borrar</a></td>
+                    <td><a href="{{route('direccion.crear')}}" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#Modal-actualizar" onclick="indice('{{$direccion->id}},{{$direccion->direccion}},{{$direccion->encargado}}')"><i class="las la-edit"></i></a></td>
+                    <td><a href="{{route('direccion.borrar',$direccion->id)}}" class="btn btn-danger" onclick="borrar(this)"><i class="las la-broom"></i></a></td>
                 </tr>
                 @endforeach
             </tbody>

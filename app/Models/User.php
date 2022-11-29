@@ -44,4 +44,7 @@ class User extends Authenticatable
     public function Coordinacion(){
         return $this->hasMany(Coordinacion::class);
     }
+    public function Archivo(){
+        return $this->hasMany(Archivo::class);
+    }
 }

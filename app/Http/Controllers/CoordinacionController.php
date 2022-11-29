@@ -82,7 +82,7 @@ class CoordinacionController extends Controller
 
             return response()->json(['msg'=> 'excelente']);
         } catch (Exception $e) {
-            return response()->json(['msg'=>'error']);
+            return response()->json(['msg'=>$e]);
         }
     }
 }

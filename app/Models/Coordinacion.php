@@ -15,4 +15,7 @@ class Coordinacion extends Model
     public function Usuario(){
         return $this->belongsTo(User::class,'idUsuario');
     }
+    public function Archivos(){
+        return $this->hasMany(Archivo::class);
+    }
 }

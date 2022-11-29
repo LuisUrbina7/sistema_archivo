@@ -5,16 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Direccion extends Model
+class Periodo extends Model
 {
     use HasFactory;
-    protected $table = 'direcciones';
+    protected $table = 'periodos';
     protected $fillable = [
-        'direccion', 'encargado','idUsuario'
+        'periodo', 'regidor','partido'
     ];
-    public function Usuario(){
-        return $this->belongsTo(User::class,'idUsuario');
-    }
+
     public function Archivos(){
         return $this->hasMany(Archivo::class);
     }

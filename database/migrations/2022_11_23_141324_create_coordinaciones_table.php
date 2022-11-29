@@ -17,7 +17,7 @@ class CreateCoordinacionesTable extends Migration
             $table->id();
             $table->string('coordinacion')->unique();
             $table->string('encargado');
-            $table->foreignId('idUsuario')->constrained('users')->cascadeOnUpdate();
+            $table->foreignId('idUsuario')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }
