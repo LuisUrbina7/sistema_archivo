@@ -62,4 +62,9 @@ Route::get('/reportes/direccion',[ReportesController::class,'index_direcciones']
 Route::get('/reportes/direccion/consulta/{nombre}/{fecha1}/{fecha2}',[ReportesController::class,'direcciones_consulta'])->name('reporte.direccion.consulta');
 Route::get('/reportes/direccion/pdf/{nombre}/{fecha1}/{fecha2}',[ReportesController::class,'direcciones_pdf'])->name('reporte.direccion.pdf');
 
+Route::get('/reportes/coordinacion',[ReportesController::class,'index_coordinaciones'])->name('reporte.coordinacion');
+Route::get('/reportes/coordinacion/consulta/{nombre}/{fecha1}/{fecha2}',[ReportesController::class,'coordinaciones_consulta'])->name('reporte.coordinacion.consulta');
+Route::get('/reportes/coordinacion/pdf/{nombre}/{fecha1}/{fecha2}',[ReportesController::class,'coordinaciones_pdf'])->name('reporte.coordinacion.pdf');
+Route::get('/reportes/etiqueta/{id}',[ReportesController::class,'etiqueta'])->name('reporte.etiqueta.pdf');
+
 Route::get('/menu', [App\Http\Controllers\HomeController::class, 'index'])->name('menu');

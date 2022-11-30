@@ -19,11 +19,11 @@
 
     <div class="row">
         <div class="col-md-3">
-            <label for="direccion" class="form-label">Direccion</label>
-            <select name="direccion" id="dato" class="form-select">
+            <label for="coordinacion" class="form-label">Coordinacion</label>
+            <select name="coordinacion" id="dato" class="form-select">
                 <option disabled selected class="">--- Seleccione ---</option>
-                @foreach($direcciones as $direccion)
-                <option value="{{$direccion->id}}">{{$direccion->direccion}}</option>
+                @foreach($coordinaciones as $coordinacion)
+                <option value="{{$coordinacion->id}}">{{$coordinacion->coordinacion}}</option>
                 @endforeach
             </select>
         </div>
@@ -82,7 +82,7 @@
         var Fecha1 = '';
         var Fecha2 = '';
         var dato = "";
-        var url = "{{route('reporte.direccion.pdf',['dato','fecha1','fecha2'])}}";
+        var url = "{{route('reporte.coordinacion.pdf',['dato','fecha1','fecha2'])}}";
         Fecha1 = $('#FechaInicio').val();
         Fecha2 = $('#FechaFin').val();
         dato = $('#dato').val();
@@ -96,8 +96,6 @@
             window.open(url, '_blank');
 
         }
-
-
         console.log(url);
     }
 
@@ -105,7 +103,7 @@
         var Fecha1 = '';
         var Fecha2 = '';
         var dato = "";
-        var url = "{{route('reporte.direccion.consulta',['dato','fecha1','fecha2'])}}";
+        var url = "{{route('reporte.coordinacion.consulta',['dato','fecha1','fecha2'])}}";
         Fecha1 = $('#FechaInicio').val();
         Fecha2 = $('#FechaFin').val();
         dato = $('#dato').val();
@@ -115,7 +113,6 @@
             url = url.replace('fecha1', Fecha1);
             url = url.replace('fecha2', Fecha2);
         }
-
         $.ajax({
             type: 'GET',
             url: url,
@@ -124,6 +121,8 @@
                 $('#cargando').toggleClass('spinner-border');
             },
             success: function(response) {
+                console.log(response);
+               
                 $('#cargando').toggleClass('spinner-border');
                 $('#tabla_consulta').html('');
                 /*          console.log(datos); */
@@ -133,53 +132,13 @@
                 });
                 $('#tabla_consulta').html(contenido);
 
+            },error:function(response){
+                $('#cargando').toggleClass('spinner-border');
+
+                console.log(response);
             }
         });
     }
 
-    /*    function pdf(url) {
-           event.preventDefault();
-           let datos = $('#formulario_consulta').submit();
-
-       } */
-
-
-    function borrar(url) {
-        event.preventDefault();
-        Swal.fire({
-            title: '¿Segur@?',
-            text: "Se borrará todo!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, borrar!',
-            cancelButtonText: 'Cancelar',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: 'GET',
-                    url: url,
-                    success: function(response) {
-                        console.log(response.msg);
-                        if (response.msg == 'excelente') {
-                            Swal.fire(
-                                'Excelente',
-                                'Borrado Correctamente',
-                                'success'
-                            )
-                            location.reload();
-                        } else {
-                            Swal.fire(
-                                'Error',
-                                'Algo ocurrió, inténtalo más tarde.',
-                                'error'
-                            );
-                        }
-                    }
-                });
-            }
-        })
-    }
 </script>
 @endsection

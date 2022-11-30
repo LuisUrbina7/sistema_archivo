@@ -56,7 +56,7 @@
                 <td>
                     <div class="btn-group">
                         <a href="{{route('archivo.ver',$archivo->id)}}" class="btn btn-primary active" aria-current="page"><i class="lar la-eye fs-5"></i></a>
-                        <a href="#" class="btn btn-secundary"><i class="las la-pen fs-5"></i></a>
+                        <a href="{{route('reporte.etiqueta.pdf',$archivo->id)}}" class="btn btn-secundary"><i class="las la-pen fs-5"></i></a>
                         <a href="{{route('archivo.borrar',$archivo->id)}}" class="btn btn-danger" onclick="borrar(this)"><i class="las la-window-close fs-5"></i></a>
                     </div>
                 </td>
