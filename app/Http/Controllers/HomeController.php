@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Coordinacion;
 use App\Models\Direccion;
+use App\Models\Periodo;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -28,9 +29,9 @@ class HomeController extends Controller
     {
         $contador =['usuarios'=>User::count(),'direcciones'=>Direccion::count(),'coordinaciones'=>Coordinacion::count()];
         
-        
+        $periodos = Periodo::select('id','periodo','regidor','partido')->get();
        
       
-        return view('menu',compact('contador'));
+        return view('menu',compact('contador','periodos'));
     }
 }

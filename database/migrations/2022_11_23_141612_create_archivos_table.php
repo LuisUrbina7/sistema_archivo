@@ -25,6 +25,8 @@ class CreateArchivosTable extends Migration
             $table->date('fecha');
             $table->char('color',50)->nullable();
             $table->string('observaciones')->nullable();
+            $table->foreignId('estante')->constrained('estantes')->cascadeOnUpdate()->cascadeOnDelete();;
+            $table->foreignId('periodo')->constrained('periodos')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -37,6 +37,26 @@
         <div class="row g-3 formulario-visible" id="formulario_uno">
 
             <div class="col-md-6">
+                <label for="direccion" class="form-label">Periodo <span class="text-danger">*</span></label>
+                <select id="inputState" class="form-select @error('direccion') is-invalid @enderror" name="direccion">
+                    <option disabled selected>---seleccione---</option>
+                    @foreach($direcciones as $direccion)
+                    <option value="{{$direccion->id}}">{{$direccion->direccion}}</option>
+                    @endforeach
+
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="direccion" class="form-label">Estante</label>
+                <select id="inputState" class="form-select @error('direccion') is-invalid @enderror" name="direccion">
+                    <option disabled selected>---seleccione---</option>
+                    @foreach($direcciones as $direccion)
+                    <option value="{{$direccion->id}}">{{$direccion->direccion}}</option>
+                    @endforeach
+
+                </select>
+            </div>
+            <div class="col-md-6">
                 <label for="direccion" class="form-label">Direccion <span class="text-danger">*</span></label>
                 <select id="inputState" class="form-select @error('direccion') is-invalid @enderror" name="direccion">
                     <option disabled selected>---seleccione---</option>
@@ -48,7 +68,7 @@
             </div>
             <div class="col-md-6">
                 <label for="coordinacion " class="form-label">Coordinacion<span class="text-danger">*</span></label>
-                <select id="inputState" class="form-select @error('coordinacion') is-invalid @enderror"  name="coordinacion">
+                <select id="inputState" class="form-select @error('coordinacion') is-invalid @enderror" name="coordinacion">
                     <option disabled selected>---seleccione---</option>
                     @foreach($coordinaciones as $coordinacion)
                     <option value="{{$coordinacion->id}}">{{$coordinacion->coordinacion}}</option>

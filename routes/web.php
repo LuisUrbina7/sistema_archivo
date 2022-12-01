@@ -3,6 +3,8 @@
 use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\CoordinacionController;
 use App\Http\Controllers\DireccionController;
+use App\Http\Controllers\EstantesController;
+use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\UsuariosController;
 use Illuminate\Support\Facades\Auth;
@@ -57,6 +59,15 @@ Route::post('/archivo/actualizar-folder/actualizar/{id}', [ArchivoController::cl
 Route::post('/archivo/agregar-detalles/', [ArchivoController::class, 'agregar_detalles'])->name('archivo.detalles.agregar');
 Route::post('/archivo/actualizar-detalles/actualizar/{id}', [ArchivoController::class, 'actualizar_detalles'])->name('archivo.detalles.actualizar');
 Route::get('/archivo/actualizar-detalles/borrar/{id}', [ArchivoController::class, 'borrar_detalles'])->name('archivo.detalles.borrar');
+
+Route::post('/periodo/agregar', [PeriodoController::class, 'agregar'])->name('periodo.agregar');
+Route::post('/periodo/actualizar{id}', [PeriodoController::class, 'actualizar'])->name('periodo.actualizar');
+Route::get('/periodo/borrar/{id}', [PeriodoController::class, 'borrar'])->name('periodo.borrar');
+
+Route::get('/estantes', [EstantesController::class, 'index'])->name('estantes');
+Route::post('/estantes/agregar', [EstantesController::class, 'agregar'])->name('estante.agregar');
+Route::post('/estantes/actualizar{id}', [EstantesController::class, 'actualizar'])->name('estante.actualizar');
+Route::get('/estantes/borrar/{id}', [EstantesController::class, 'borrar'])->name('estante.borrar');
 
 Route::get('/reportes/direccion',[ReportesController::class,'index_direcciones'])->name('reporte.direccion');
 Route::get('/reportes/direccion/consulta/{nombre}/{fecha1}/{fecha2}',[ReportesController::class,'direcciones_consulta'])->name('reporte.direccion.consulta');

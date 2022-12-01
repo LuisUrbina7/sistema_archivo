@@ -11,7 +11,7 @@ class Archivo extends Model
     use HasFactory;
     protected $table = 'archivos';
     protected $fillable = [
-        'direccion', 'coordinacion','instituto','año','folder','responsable','recibido','fecha','color','observaciones',
+        'direccion', 'coordinacion','instituto','año','folder','responsable','recibido','fecha','color','observaciones','estante'
     ];
     public function Detalles(){
         return $this->hasMany(Archivos_detalles::class);
@@ -27,5 +27,8 @@ class Archivo extends Model
     }
     public function Usuario(){
         return $this->belongsTo(User::class,'recibido');
+    }
+    public function Estante(){
+        return $this->belongsTo(Estante::class,'estante');
     }
 }
