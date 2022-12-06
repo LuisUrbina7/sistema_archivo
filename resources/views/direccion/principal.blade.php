@@ -20,19 +20,8 @@
         </div>
     </div>
 </div>
-<section>
-    <!--  @if ( session('correcto') )
-    <div class="alert alert-success" role="alert">
-        <strong>Felicitaciones </strong>
-        {{session('correcto')}}
-    </div>
-    @endif
-    @if(session('error'))
-    <div class="alert alert-danger" role="alert">
-        <strong>Error </strong>
-        {{session('error')}}
-    </div>
-    @endif -->
+<section class="cuerpo-carta">
+   
     <div class="container">
         <table class="table table-striped">
             <thead>

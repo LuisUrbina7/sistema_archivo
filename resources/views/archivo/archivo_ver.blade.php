@@ -34,14 +34,16 @@
     {{session('error')}}
 </div>
 @endif
+<section class="cuerpo-carta">
 <div class="row">
     <div class="col">
         <ul class="list-group">
             <li class="list-group-item"><strong>Direccion : </strong> {{$folder->Direccion->direccion}}</li>
-            <li class="list-group-item"><strong>Coordinacion : </strong> {{$folder->coordinacion}}</li>
+            <li class="list-group-item"><strong>Coordinacion : </strong> {{$folder->Coordinacion->coordinacion}}</li>
             <li class="list-group-item"><strong>Instituto : </strong> {{$folder->instituto}}</li>
             <li class="list-group-item"><strong> Año : </strong> {{$folder->año}}</li>
             <li class="list-group-item"><strong>Folder N#: </strong> {{$folder->folder}}</li>
+            <li class="list-group-item"><strong>Estante : </strong>Número {{$folder->estante}}</li>
 
         </ul>
     </div>
@@ -52,6 +54,7 @@
             <li class="list-group-item"><strong> Fecha : </strong> {{$folder->fecha}}</li>
             <li class="list-group-item"><strong>Color : </strong> {{$folder->color}}</li>
             <li class="list-group-item"><strong>Observaciones :</strong> {{$folder->observaciones}}</li>
+            <li class="list-group-item"><strong>Periodo :</strong> {{$folder->Periodo->periodo}}</li>
         </ul>
     </div>
     <div class="col-12">

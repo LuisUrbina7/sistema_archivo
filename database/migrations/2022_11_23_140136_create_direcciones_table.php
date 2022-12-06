@@ -15,8 +15,8 @@ class CreateDireccionesTable extends Migration
     {
         Schema::create('direcciones', function (Blueprint $table) {
             $table->id();
-            $table->string('direccion')->unique();
-            $table->string('encargado');
+            $table->char('direccion',50)->unique();
+            $table->char('encargado',50);
             $table->foreignId('idUsuario')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });

@@ -18,40 +18,39 @@
         </div>
     </div>
 </div>
-<section>
-    @if ( session('excelente') )
-    <div class="alert alert-success" role="alert">
-        <strong>Felicitaciones </strong>
-        {{session('excelente')}}
-    </div>
-    @endif
-    @if ( session('error') )
-    <div class="alert alert-success" role="alert">
-        <strong>Error </strong>
-        {{session('error')}}
-    </div>
-    @endif
+@if ( session('excelente') )
+<div class="alert alert-success" role="alert">
+    <strong>Felicitaciones </strong>
+    {{session('excelente')}}
+</div>
+@endif
+@if ( session('error') )
+<div class="alert alert-danger" role="alert">
+    <strong>Error </strong>
+    {{session('error')}}
+</div>
+@endif
+<section class="cuerpo-carta">
     <form method="POST" action="{{route('archivo.crear')}}" id="formulario_archivo_agregar">
         @csrf
-        <input type="hidden" value="{{$indice['id']}}" name="referencia">
         <div class="row g-3 formulario-visible" id="formulario_uno">
 
             <div class="col-md-6">
                 <label for="direccion" class="form-label">Periodo <span class="text-danger">*</span></label>
-                <select id="inputState" class="form-select @error('direccion') is-invalid @enderror" name="direccion">
+                <select id="inputState" class="form-select @error('periodo') is-invalid @enderror" name="periodo">
                     <option disabled selected>---seleccione---</option>
-                    @foreach($direcciones as $direccion)
-                    <option value="{{$direccion->id}}">{{$direccion->direccion}}</option>
+                    @foreach($periodos as $periodo)
+                    <option value="{{$periodo->id}}">{{$periodo->periodo }} -- {{$periodo->regidor }}</option>
                     @endforeach
 
                 </select>
             </div>
             <div class="col-md-6">
                 <label for="direccion" class="form-label">Estante</label>
-                <select id="inputState" class="form-select @error('direccion') is-invalid @enderror" name="direccion">
+                <select id="inputState" class="form-select @error('direccion') is-invalid @enderror" name="estante">
                     <option disabled selected>---seleccione---</option>
-                    @foreach($direcciones as $direccion)
-                    <option value="{{$direccion->id}}">{{$direccion->direccion}}</option>
+                    @foreach($estantes as $estante)
+                    <option value="{{$estante->id}}">Numero {{$estante->numero}}</option>
                     @endforeach
 
                 </select>
@@ -190,7 +189,18 @@
 @section('js')
 <script>
     function guardar(event) {
-        $('#formulario_archivo_agregar').submit();
+        
+        if ($("input[name='documento[]']").val() == null) {
+            Swal.fire(
+                'Advertencia',
+                'No puedes crear un nuevo registro sin ningún detalle.',
+                'warning'
+            );
+        } else {
+
+            $('#formulario_archivo_agregar').submit();
+        }
+
     }
 
     function pasos(event) {
@@ -211,15 +221,15 @@
         let folios = $('#folios').val();
 
         if (keycode == 13 && documento != '' && solicitud != '' && folios != '' && ($('#check_2').is(':checked') || $('#check_1').is(':checked'))) {
-            let check = '<input class="form-check-input" type="checkbox" value="revisado"  name="ap[]" id="flexCheckDefault" checked> <label class="form-check-label" for="flexCheckChecked">No completo </label>';
+            let check = '<input class="form-check-input" type="checkbox" value="faltante"  name="ap[]" id="flexCheckDefault" checked> <label class="form-check-label" for="flexCheckChecked">No completo </label>';
             if ($('#check_1').is(':checked')) {
-                check = '<input class="form-check-input" type="checkbox" value="faltante"  name="ap[]" id="flexCheckDefault" checked > <label class="form-check-label" for="flexCheckChecked"> completo </label>';
+                check = '<input class="form-check-input" type="checkbox" value="revisado"  name="ap[]" id="flexCheckDefault" checked > <label class="form-check-label" for="flexCheckChecked"> completo </label>';
             }
 
             var contenido_tabla = $('#tabla_cuerpo').html();
             contenido_tabla += '<tr>' +
                 '<td> ' + 1 + '</td>' +
-                '<td><input class="form-control" type="text"  name="documento[]" value="' + documento + '"></td>' +
+                '<td><input class="form-control" type="text"  name="documento[]" id="documento_lista" value="' + documento + '"></td>' +
                 '<td><input class="form-control" type="text"  name="solicitud[]" value="' + solicitud + '"></td>' +
                 '<td><input class="form-control" type="text"  name="folios[]" value="' + folios + '"></td>' +
                 '<td>' + check + '</td>' +

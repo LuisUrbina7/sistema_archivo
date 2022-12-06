@@ -13,14 +13,16 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Folder N#<strong>{{$folder->folder}}</strong></h1>
 </div>
+<section class="cuerpo-carta">
 <div class="row">
     <div class="col">
         <ul class="list-group">
-            <li class="list-group-item"><strong>Direccion : </strong> {{$folder->Direccion->direccion}}</li>
+            <li class="list-group-item"><strong>Direccionnnn : </strong> {{$folder->Direccion->direccion}}</li>
             <li class="list-group-item"><strong>Coordinacion : </strong> {{$folder->coordinacion}}</li>
             <li class="list-group-item"><strong>Instituto : </strong> {{$folder->instituto}}</li>
             <li class="list-group-item"><strong> Año : </strong> {{$folder->año}}</li>
             <li class="list-group-item"><strong>Folder N#: </strong> {{$folder->folder}}</li>
+            <li class="list-group-item"><strong>Estante N#: </strong> {{$folder->estante}}</li>
 
         </ul>
     </div>

@@ -6,6 +6,8 @@ use App\Models\Archivo;
 use App\Models\Archivos_detalles;
 use App\Models\Coordinacion;
 use App\Models\Direccion;
+use App\Models\Estante;
+use App\Models\Periodo;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +20,12 @@ class ArchivoController extends Controller
         $archivos = Archivo::orderby('id', 'desc')->get();
         return view('archivo.principal', compact('archivos'));
     }
+    public function archivo_periodo($id)
+    {
+      
+        $archivos = Archivo::where('periodo',$id)->orderby('id', 'desc')->get();
+        return view('archivo.principal_periodo', compact('archivos'));
+    }
     public function archivo_ver($id)
     {
         $folder = Archivo::find($id);
@@ -28,20 +36,24 @@ class ArchivoController extends Controller
     {
         $direcciones = Direccion::select('id', 'direccion')->get();
         $coordinaciones = Coordinacion::select('id', 'coordinacion')->get();
-        $archivos = Archivo::select('folder', 'id')->latest('folder')->first();
+        $estantes = Estante::select('id', 'numero')->get();
+        $periodos = Periodo::select('id', 'periodo', 'regidor')->orderBy('id', 'desc')->get();
+
+        $archivos = Archivo::select('folder')->latest('folder')->first();
+
         $indice = ['id' => 1, 'folder' => 1];
         if ($archivos) {
             $indice = ['id' => $archivos->id + 1, 'folder' => $archivos->folder + 1];
         }
 
-        return view('archivo.agregar_archivo', compact('direcciones', 'coordinaciones', 'indice'));
+        return view('archivo.agregar_archivo', compact('direcciones', 'coordinaciones', 'indice', 'periodos', 'estantes'));
     }
 
 
     public function crear(Request $request)
     {
 
-        /* dd($request->all()); */
+        /* dd($request->input('periodo')); */
 
         $validator  = Validator::make($request->all(), [
             'direccion' => ['required'],
@@ -51,6 +63,8 @@ class ArchivoController extends Controller
             'recibido' => ['required'],
             'folder' => ['required'],
             'fecha' => ['required', 'max:255'],
+            'periodo' => ['required'],
+            'estante' => ['required'],
         ]);
 
         if ($validator->fails()) {
@@ -70,12 +84,15 @@ class ArchivoController extends Controller
                 'fecha' => $request->date('fecha'),
                 'color' => $request->input('color'),
                 'observaciones' => $request->input('observaciones'),
+                'estante' => $request->input('estante'),
+                'periodo' => $request->input('periodo'),
             ]);
+            $indice = Archivo::select('id')->latest('id')->first()->toArray();
 
             for ($x = 0; $x < count($request->input('documento')); $x++) {
 
                 Archivos_detalles::create([
-                    'referencia' => $request->input('referencia'),
+                    'referencia' => $indice['id'],
                     'documento' => $request->input('documento')[$x],
                     'folios' => $request->input('folios')[$x],
                     'solicitud' => $request->input('solicitud')[$x],
@@ -85,18 +102,18 @@ class ArchivoController extends Controller
 
             return redirect()->back()->with(['excelente' => 'Archivo agregado correctamente.']);
         } catch (Exception $e) {
-
-            return $e;
+            return redirect()->back()->with(['error' => 'Algo salió mal.']);
         }
     }
 
-    public function borrar($id){
-        try{
+    public function borrar($id)
+    {
+        try {
 
             $borrado = Archivo::find($id);
             $borrado->delete();
             return response()->json(['msg' => 'excelente']);
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return response()->json(['msg' => $e]);
         }
     }
@@ -104,9 +121,11 @@ class ArchivoController extends Controller
     public function formulario_actualizar_folder($id)
     {
         $folder = Archivo::find($id);
+        $estantes = Estante::select('id', 'numero')->get();
+        $periodos = Periodo::select('id', 'periodo', 'regidor')->orderBy('id', 'desc')->get();
         $direcciones = Direccion::select('id', 'direccion')->get();
         $coordinaciones = Coordinacion::select('id', 'coordinacion')->get();
-        return view('archivo.actualizar_folder', compact('folder', 'direcciones', 'coordinaciones'));
+        return view('archivo.actualizar_folder', compact('folder', 'direcciones', 'coordinaciones','estantes','periodos'));
     }
     public function actualizar_folder(Request $request, $id)
     {
@@ -137,18 +156,20 @@ class ArchivoController extends Controller
             $folder->fecha = $request->date('fecha');
             $folder->color = $request->input('color');
             $folder->observaciones = $request->input('observaciones');
+            $folder->estante = $request->input('estante');
+            $folder->periodo = $request->input('periodo');
             $folder->save();
 
             return redirect()->back()->with(['excelente' => 'Archivo actualizado correctamente.']);
         } catch (Exception $e) {
-            return redirect()->back()->with(['error' => 'ocurrió algo en la actualización de archivos.']);
+            return $e;
         }
     }
 
-  
+
     public function agregar_detalles(Request $request)
     {
-       
+
         try {
 
             Archivos_detalles::create([

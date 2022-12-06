@@ -49,6 +49,7 @@ Route::get('/coordinacion/borrar/{id}', [CoordinacionController::class, 'borrar'
 
 
 Route::get('/archivo', [ArchivoController::class, 'index'])->name('archivo');
+Route::get('/archivo/periodo/{id}', [ArchivoController::class, 'archivo_periodo'])->name('archivo.periodo');
 Route::get('/archivo/crear/formulario', [ArchivoController::class, 'formulario_crear'])->name('archivo.formulario.crear');
 Route::post('/archivo/crear/formulario/guardar', [ArchivoController::class, 'crear'])->name('archivo.crear');
 Route::get('/archivo/ver/{id}', [ArchivoController::class, 'archivo_ver'])->name('archivo.ver');
@@ -66,8 +67,12 @@ Route::get('/periodo/borrar/{id}', [PeriodoController::class, 'borrar'])->name('
 
 Route::get('/estantes', [EstantesController::class, 'index'])->name('estantes');
 Route::post('/estantes/agregar', [EstantesController::class, 'agregar'])->name('estante.agregar');
-Route::post('/estantes/actualizar{id}', [EstantesController::class, 'actualizar'])->name('estante.actualizar');
+Route::post('/estantes/actualizar/{id}', [EstantesController::class, 'actualizar'])->name('estante.actualizar');
 Route::get('/estantes/borrar/{id}', [EstantesController::class, 'borrar'])->name('estante.borrar');
+
+Route::get('/reportes/general',[ReportesController::class,'index_general'])->name('reporte.general');
+Route::get('/reportes/general/consulta/{fecha1}/{fecha2}',[ReportesController::class,'general_consulta'])->name('reporte.general.consulta');
+Route::get('/reportes/general/pdf/{fecha1}/{fecha2}',[ReportesController::class,'general_pdf'])->name('reporte.general.pdf');
 
 Route::get('/reportes/direccion',[ReportesController::class,'index_direcciones'])->name('reporte.direccion');
 Route::get('/reportes/direccion/consulta/{nombre}/{fecha1}/{fecha2}',[ReportesController::class,'direcciones_consulta'])->name('reporte.direccion.consulta');
@@ -76,6 +81,7 @@ Route::get('/reportes/direccion/pdf/{nombre}/{fecha1}/{fecha2}',[ReportesControl
 Route::get('/reportes/coordinacion',[ReportesController::class,'index_coordinaciones'])->name('reporte.coordinacion');
 Route::get('/reportes/coordinacion/consulta/{nombre}/{fecha1}/{fecha2}',[ReportesController::class,'coordinaciones_consulta'])->name('reporte.coordinacion.consulta');
 Route::get('/reportes/coordinacion/pdf/{nombre}/{fecha1}/{fecha2}',[ReportesController::class,'coordinaciones_pdf'])->name('reporte.coordinacion.pdf');
+
 Route::get('/reportes/etiqueta/{id}',[ReportesController::class,'etiqueta'])->name('reporte.etiqueta.pdf');
 
 Route::get('/menu', [App\Http\Controllers\HomeController::class, 'index'])->name('menu');

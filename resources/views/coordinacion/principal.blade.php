@@ -20,7 +20,7 @@
         </div>
     </div>
 </div>
-<section>
+<section class="cuerpo-carta">
     <!--  @if ( session('correcto') )
     <div class="alert alert-success" role="alert">
         <strong>Felicitaciones </strong>

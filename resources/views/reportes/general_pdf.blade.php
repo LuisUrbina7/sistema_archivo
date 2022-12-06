@@ -20,8 +20,7 @@
 
     <div class="text-center">
         <h2>
-            Reporte de Archivo por Direccion.
-        </h2>
+            Reporte GENERAL
         <hr>
         @php
         $registros = count($archivos);
@@ -37,6 +36,7 @@
         <thead class="bg-primary text-white">
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">Direccion</th>
                 <th scope="col">Coordinacion</th>
                 <th scope="col">Folder</th>
                 <th scope="col">Año</th>
@@ -55,11 +55,13 @@
             @endphp
             <tr>
                 <th scope="row">{{$contador}}</th>
-                <td>{{$archivo->Coordinacion->coordinacion}}</td>
+                <th >{{$archivo->direccion}}</th>
+                <td>{{$archivo->coordinacion}}</td>
                 <td>Nº {{$archivo->folder}}</td>
                 <td>{{$archivo->año}}</td>
                 <td>{{$archivo->responsable}}</td>
                 <td>{{$archivo->fecha}}</td>
+
             </tr>
             @endforeach
             <tfoot class="bg-primary">

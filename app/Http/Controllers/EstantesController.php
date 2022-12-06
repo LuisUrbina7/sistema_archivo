@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Archivo;
 use App\Models\Estante;
 use Exception;
 use Illuminate\Http\Request;
@@ -10,20 +11,21 @@ class EstantesController extends Controller
 {
 
     public function index(){
-        $estantes = Estante::withCount(['archivos'])->get();
-        dd($estantes);
-       return view('estantes.principal');
+        $estantes = Estante::withCount(['Archivos'])->paginate(5);
+       /*  $estantes = Estante::paginate(5); */
+       /*  dd($estantes); */
+       return view('estantes.principal',compact('estantes'));
     }
     public function agregar(Request $request)
     {
-
+        /* dd($request->all()); */
         if ($request->all()) {
             try {
 
                 Estante::create([
-                    'periodo' => $request->input('periodo'),
-                    'regidor' => $request->input('regidor'),
-                    'partido' => $request->input('partido'),
+                    'codigo' => $request->input('codigo'),
+                    'numero' => $request->input('numero'),
+                    'descripcion' => $request->input('descripcion'),
                 ]);
                 return redirect()->back()->with(['excelente' => 'Dato agregado correctamente.']);
             } catch (Exception $e) {
@@ -37,11 +39,11 @@ class EstantesController extends Controller
         if ($request->all()) {
             try {
                 $dato = Estante::find($id);
-                $dato->periodo = $request->input('periodo');
-                $dato->regidor = $request->input('regidor');
-                $dato->partido = $request->input('partido');
+                $dato->codigo = $request->input('codigo');
+                $dato->numero = $request->input('numero');
+                $dato->descripcion = $request->input('descripcion');
                 $dato->save();
-                return redirect()->back()->with(['excelente' => 'Dato agregado correctamente.']);
+                return redirect()->back()->with(['excelente' => 'Dato actualizado correctamente.']);
             } catch (Exception $e) {
                 return redirect()->back()->with(['error' => 'algo ocurrió.']);
             }

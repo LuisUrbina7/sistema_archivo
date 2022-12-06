@@ -16,14 +16,13 @@
             <a class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#Modal-agregar">
                 <i class="lab la-buromobelexperte fs-2"></i>
             </a>
-
         </div>
     </div>
 </div>
-<section class="container">
+<div class="">
     <div class="row g-1 mb-3">
         <div class="col">
-            <div class="contenedor-carta d-flex justify-content-center align-items-center">
+            <div class="contenedor-carta d-flex justify-content-center align-items-center shadow">
                 <div class="cuerpo-icono text-center w-25">
                     <i class="las la-users fs-1"></i>
                 </div>
@@ -35,7 +34,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="contenedor-carta d-flex justify-content-center align-items-center">
+            <div class="contenedor-carta d-flex justify-content-center align-items-center shadow">
                 <div class="cuerpo-icono text-center w-25">
                     <i class="las la-database fs-1"></i>
                 </div>
@@ -47,7 +46,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="contenedor-carta d-flex justify-content-center align-items-center">
+            <div class="contenedor-carta d-flex justify-content-center align-items-center shadow">
                 <div class="cuerpo-icono text-center w-25">
                     <i class="las la-columns fs-1"></i>
                 </div>
@@ -60,19 +59,22 @@
         </div>
 
     </div>
+</div>
+<section class="container cuerpo-carta">
+
     <div class="">
-    @if ( session('excelente') )
-    <div class="alert alert-success" role="alert">
-        <strong>Felicitaciones </strong>
-        {{session('excelente')}}
-    </div>
-    @endif
-    @if ( session('error') )
-    <div class="alert alert-success" role="alert">
-        <strong>Error </strong>
-        {{session('error')}}
-    </div>
-    @endif
+        @if ( session('excelente') )
+        <div class="alert alert-success" role="alert">
+            <strong>Felicitaciones </strong>
+            {{session('excelente')}}
+        </div>
+        @endif
+        @if ( session('error') )
+        <div class="alert alert-success" role="alert">
+            <strong>Error </strong>
+            {{session('error')}}
+        </div>
+        @endif
         <table class="table caption-top">
             <caption>Periodos | mandatos</caption>
             <thead>
@@ -95,7 +97,7 @@
                 @endphp
                 <tr>
                     <th scope="row">{{$contador}}</th>
-                    <td>{{$periodo->periodo}}</td>
+                    <td><a href="{{route('archivo.periodo',$periodo->id)}}">{{$periodo->periodo}}</a> </td>
                     <td>{{$periodo->regidor}}</td>
                     <td>{{$periodo->partido}}</td>
                     <td>
@@ -105,7 +107,7 @@
                         </div>
                     </td>
                 </tr>
-              <!--   --modal para editar por post --- -->
+                <!--   --modal para editar por post --- -->
                 <div class="modal fade" id="Modal-{{$periodo->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -183,7 +185,6 @@
 
 @section('js')
 <script>
-    
     function borrar(url) {
         event.preventDefault();
         Swal.fire({

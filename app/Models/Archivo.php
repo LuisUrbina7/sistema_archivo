@@ -11,7 +11,7 @@ class Archivo extends Model
     use HasFactory;
     protected $table = 'archivos';
     protected $fillable = [
-        'direccion', 'coordinacion','instituto','año','folder','responsable','recibido','fecha','color','observaciones','estante'
+        'direccion', 'coordinacion','instituto','año','folder','responsable','recibido','fecha','color','observaciones','estante','periodo'
     ];
     public function Detalles(){
         return $this->hasMany(Archivos_detalles::class);
@@ -23,7 +23,7 @@ class Archivo extends Model
         return $this->belongsTo(Coordinacion::class,'coordinacion');
     }
     public function Periodo(){
-        return $this->belongsTo(Periodo::class,'id_periodo');
+        return $this->belongsTo(Periodo::class,'periodo');
     }
     public function Usuario(){
         return $this->belongsTo(User::class,'recibido');

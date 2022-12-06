@@ -10,10 +10,10 @@ class Estante extends Model
     use HasFactory;
     protected $table = 'estantes';
     protected $fillable = [
-        'numero'
+        'codigo','numero','descripcion'
     ];
 
     public function Archivos(){
-        return $this->hasMany(Archivo::class);
+        return $this->hasMany(Archivo::class,'estante');
     }
 }

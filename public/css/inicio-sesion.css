@@ -1,0 +1,69 @@
+
+/* Estilos para la página de inicio de sesion */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fondo de pagina */
+main{
+display: flex;
+align-items: center;
+justify-content: center;
+width: 100%;
+height: 100vh;
+background-color: #0093E9;
+background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+;
+
+
+}
+.icono-user{
+    background-color: aqua;
+    padding: 20px 20px;
+    border-radius: 50%;
+}
+
+.contenedor-sesion{
+min-width: 750px;
+max-height: 431px;
+border-radius: 10px;
+overflow: hidden;
+}
+.sesion-img{
+    height:431px ;
+    background-image: url('../img/Foto-sesion.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+/*  Boton inicio de sesion */
+.btn-sesion{
+background-color: blue;
+color: #f6f6fb;
+padding: 10px 10px;
+border-radius: 20px;
+border: transparent;
+}
+.btn-sesion:hover{
+background-color: rgb(3, 3, 202);
+}
+/* formulario de sesion */
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    margin: auto;
+  }
+  
+  .form-signin .checkbox {
+    font-weight: 400;
+  }
+  
+  .form-signin .form-floating:focus-within {
+    z-index: 2;
+  }
+  
+  
+  

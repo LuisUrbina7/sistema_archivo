@@ -9,6 +9,20 @@
 @endsection
 
 @section('contenido')
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Usuarios</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#Modal-agregar">
+                <i class="las la-user-plus fs-2"></i>
+            </a>
+            <a  class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#Modal-listar">
+                <i class="las la-list-ul fs-2"></i>
+            </a>
+        </div>
+    </div>
+</div>
 @if ( session('nombre') )
 <div class="alert alert-success" role="alert">
     <strong>Felicitaciones </strong>
@@ -33,26 +47,13 @@
     {{ session('error') }}
 </div>
 @endif
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Usuarios</h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
-        <div class="btn-group me-2">
-            <a class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#Modal-agregar">
-                <i class="las la-user-plus fs-2"></i>
-            </a>
-            <a  class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#Modal-listar">
-                <i class="las la-list-ul fs-2"></i>
-            </a>
-        </div>
-    </div>
-</div>
-<section>
+<section class="cuerpo-carta">
 
     <form class="row g-3" method="POST" action="{{ route('perfil.actualizar', Auth::user()->id) }}">
         @csrf
         <div class="col-md-6">
             <label for="nombre" class="form-label">{{ __('Nombre') }}</label>
-            <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ Auth::user()->name }}">
+            <input  type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ Auth::user()->name }}">
 
             @error('nombre')
             <span class="invalid-feedback" role="alert">
@@ -63,7 +64,7 @@
         </div>
         <div class="col-md-6">
             <label for="name" class="form-label">{{ __('Usuario') }}</label>
-            <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ Auth::user()->username }}">
+            <input  type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ Auth::user()->username }}">
 
             @error('username')
             <span class="invalid-feedback" role="alert">
@@ -74,7 +75,7 @@
         </div>
         <div class="col-12">
             <label for="email" class="form-label">{{ __('Email Address') }}</label>
-            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}" required autocomplete="email">
+            <input  type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}" required autocomplete="email">
             @error('email')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -86,7 +87,7 @@
         <div class="col-md-12">
             <label for="rol" class="form-label">{{ __('Permisos') }}</label>
 
-            <select id="rol" class="form-select" name="rol">
+            <select  class="form-select" name="rol">
                 <option value="{{ Auth::user()->rol }}">--Permiso--</option>
                 <option value="0">Administrador</option>
                 <option value="1">Editor</option>
@@ -101,7 +102,7 @@
         </div>
         <div class="col-md-12">
             <label for="rol" class="form-label">{{ __('Clave Vieja') }}</label>
-            <input id="clave_vieja" type="password" class="form-control @error('clave_vieja') is-invalid @enderror" name="clave_vieja">
+            <input  type="password" class="form-control @error('clave_vieja') is-invalid @enderror" name="clave_vieja">
 
             @error('clave_vieja')
             <span class="invalid-feedback" role="alert">
@@ -111,7 +112,7 @@
         </div>
         <div class="col-md-6">
             <label for="password" class="form-label">{{ __('Nueva') }}</label>
-            <input id="clave" type="password" class="form-control @error('clave') is-invalid @enderror" name="clave">
+            <input  type="password" class="form-control @error('clave') is-invalid @enderror" name="clave">
             @error('clave')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -121,7 +122,7 @@
         <div class="col-md-6">
             <label for="password-confirm" class="form-label">{{ __('Confirmar') }}</label>
 
-            <input id="confirmacion_clave" type="password" class="form-control" name="confirmacion_clave">
+            <input  type="password" class="form-control" name="confirmacion_clave">
 
         </div>
         <div class="col-12">

@@ -20,7 +20,7 @@
 
     <div class="text-center">
         <h2>
-            Reporte de Archivo por Direccion.
+            Reporte de Archivo por Coordinacion.
         </h2>
         <hr>
         @php
@@ -38,7 +38,6 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Direccion</th>
-                <th scope="col">Coordinacion</th>
                 <th scope="col">Folder</th>
                 <th scope="col">Año</th>
                 <th scope="col">Responsable</th>
@@ -56,8 +55,7 @@
             @endphp
             <tr>
                 <th scope="row">{{$contador}}</th>
-                <th scope="row">{{$archivo->Direccion->direccion}}</th>
-                <td>{{$archivo->Coordinacion->coordinacion}}</td>
+                <th >{{$archivo->Direccion->direccion}}</th>
                 <td>Nº {{$archivo->folder}}</td>
                 <td>{{$archivo->año}}</td>
                 <td>{{$archivo->responsable}}</td>
@@ -65,12 +63,20 @@
 
             </tr>
             @endforeach
-            <tfoot>
-
+            <tfoot class="bg-primary">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </tfoot>
         </tbody>
     </table>
-
+    <div class="text-center mb-4"> <p>EN CAPACHO NUEVO  RENACE LA ESPERANZA<br> 2022</p></div>
     <script src="{{asset('bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 </body>
 

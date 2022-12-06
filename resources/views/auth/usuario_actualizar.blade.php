@@ -42,7 +42,7 @@
         </div>
     </div>
 </div>
-<section>
+<section class="cuerpo-carta">
 
     <form class="row g-3" method="POST" action="{{ route('usuarios.actualizar', $usuario->id) }}">
         @csrf

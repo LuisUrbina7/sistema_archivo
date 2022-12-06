@@ -11,9 +11,8 @@
 @section('contenido')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Archivo </h1>
-   
+
 </div>
-<section>
 @if ( session('excelente') )
 <div class="alert alert-success" role="alert">
     <strong>Felicitaciones </strong>
@@ -26,16 +25,37 @@
     {{session('error')}}
 </div>
 @endif
+<section class="cuerpo-carta">
     <form method="POST" action="{{route('archivo.folder.actualizar',$folder->id)}}">
 
-    <div class="row g-3">
+        <div class="row g-3">
 
-        @csrf
+            @csrf
+            <div class="col-md-6">
+                <label for="direccion" class="form-label">Periodo <span class="text-danger">*</span></label>
+                <select id="inputState" class="form-select @error('periodo') is-invalid @enderror" name="periodo">
+                    <option value="{{$folder->periodo}}" selected>{{$folder->Periodo->periodo}}</option>
+                    @foreach($periodos as $periodo)
+                    <option value="{{$periodo->id}}">{{$periodo->periodo }} -- {{$periodo->regidor }}</option>
+                    @endforeach
+
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="direccion" class="form-label">Estante</label>
+                <select id="inputState" class="form-select @error('direccion') is-invalid @enderror" name="estante">
+                    <option value="{{$folder->estante}}" selected>Numero {{$folder->Estante->numero}}</option>
+                    @foreach($estantes as $estante)
+                    <option value="{{$estante->id}}">Numero {{$estante->numero}}</option>
+                    @endforeach
+
+                </select>
+            </div>
             <div class="col-md-6">
                 <label for="direccion" class="form-label">Direccion <span class="text-danger">*</span></label>
                 <select id="inputState" class="form-select @error('direccion') is-invalid @enderror" name="direccion">
                     <option value="{{$folder->direccion}}" selected>{{$folder->Direccion->direccion}}
-                    @foreach($direcciones as $direccion)
+                        @foreach($direcciones as $direccion)
                     <option value="{{$direccion->id}}">{{$direccion->direccion}}</option>
                     @endforeach
 
@@ -44,7 +64,7 @@
             <div class="col-md-6">
                 <label for="coordinacion " class="form-label">Coordinacion</label>
                 <select id="inputState" class="form-select" name="coordinacion">
-                    <option disabled selected>--seleccione---</option>
+                    <option value="{{$folder->coordinacion}}" selected>{{$folder->Coordinacion->coordinacion}}</option>
                     @foreach($coordinaciones as $coordinacion)
                     <option value="{{$coordinacion->id}}">{{$coordinacion->coordinacion}}</option>
                     @endforeach
@@ -53,7 +73,7 @@
             </div>
             <div class="col-12">
                 <label for="inputAddress" class="form-label">Instituto</label>
-                <input type="text" class="form-control " id="inputAddress" name="instituto" placeholder="Nombre del Instituto" value="{{$folder->instituto}}"> 
+                <input type="text" class="form-control " id="inputAddress" name="instituto" placeholder="Nombre del Instituto" value="{{$folder->instituto}}">
             </div>
             <div class="col-md-6">
                 <label for="año" class="form-label @error('año') is-invalid @enderror">Año<span class="text-danger">*</span></label>
@@ -97,16 +117,16 @@
             </div>
             <div class="col-md-8">
                 <label for="observaciones" class="form-label">Observaciones</label>
-                <textarea name="observaciones" id="observaciones" cols="4" rows="2" class="form-control" >{{$folder->observaciones}}</textarea>
+                <textarea name="observaciones" id="observaciones" cols="4" rows="2" class="form-control">{{$folder->observaciones}}</textarea>
             </div>
             <div class="col-md-4">
                 <label for="fecha" class="form-label">Color</label>
                 <input type="color" class="form-control  form-control-color" name="color" value="{{$folder->color}}">
             </div>
             <div class="col-12 mb-3">
-                <input type="submit" class="btn btn-warning"  value="Actualizar">
+                <input type="submit" class="btn btn-warning" value="Actualizar">
             </div>
-    </div>
+        </div>
     </form>
 </section>
 
@@ -114,6 +134,6 @@
 
 @section('js')
 <script>
-   
+
 </script>
 @endsection

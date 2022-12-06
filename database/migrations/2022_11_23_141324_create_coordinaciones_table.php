@@ -15,8 +15,8 @@ class CreateCoordinacionesTable extends Migration
     {
         Schema::create('coordinaciones', function (Blueprint $table) {
             $table->id();
-            $table->string('coordinacion')->unique();
-            $table->string('encargado');
+            $table->char('coordinacion',50)->unique();
+            $table->char('encargado',50);
             $table->foreignId('idUsuario')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });

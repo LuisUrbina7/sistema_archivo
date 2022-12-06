@@ -15,12 +15,12 @@ class CreateArchivosTable extends Migration
     {
         Schema::create('archivos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('direccion')->nullable()->constrained('direcciones')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('coordinacion')->nullable()->constrained('coordinaciones')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->string('instituto')->nullable();
+            $table->foreignId('direccion')->constrained('direcciones')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('coordinacion')->constrained('coordinaciones')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string('instituto',100)->nullable();
             $table->integer('año');
             $table->integer('folder')->unique();
-            $table->string('responsable');
+            $table->char('responsable',50);
             $table->foreignId('recibido')->constrained('users')->cascadeOnUpdate();
             $table->date('fecha');
             $table->char('color',50)->nullable();

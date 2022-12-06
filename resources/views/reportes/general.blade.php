@@ -11,31 +11,22 @@
 
 @section('contenido')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Reportes de Coordinación </span></h1>
+    <h1 class="h2">Reporte General <span class="text-muted fs-6"></span></h1>
 
 </div>
 <section class="cuerpo-carta">
 
 
     <div class="row">
-        <div class="col-md-3">
-            <label for="coordinacion" class="form-label">Coordinacion</label>
-            <select name="coordinacion" id="dato" class="form-select">
-                <option disabled selected class="">--- Seleccione ---</option>
-                @foreach($coordinaciones as $coordinacion)
-                <option value="{{$coordinacion->id}}">{{$coordinacion->coordinacion}}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
             <label for="fecha_inicio" class="form-label">Fecha Inicio</label>
             <input type="date" class="form-control" name="fecha_inicio" id="FechaInicio">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
             <label for="fecha_fin" class="form-label">Fecha Fin</label>
             <input type="date" class="form-control" name="fecha_fin" id="FechaFin">
         </div>
-        <div class="col-md-3 d-flex align-items-center justify-content-center">
+        <div class="col-md-12 mt-3 d-flex align-items-center justify-content-center">
             <div class="btn-group ">
                 <a class="btn btn-primary" onclick="buscar()">Buscar</a>
                 <a class="btn btn-danger" onclick="generarpdf()">PDF</a>
@@ -44,7 +35,6 @@
     </div>
 
     <div class="mt-3">
-
         <div class="d-flex justify-content-center">
             <div  role="status" id="cargando">
                 <span class="visually-hidden">cargando...</span>
@@ -53,9 +43,10 @@
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th>Folder</th>
+                    <th>Dirección</th>
+                    <th>Coordinación</th>
                     <th>Instituto</th>
-                    <th>Año</th>
+                    <th>Folder</th>
                     <th>Responsable</th>
                     <th>Fecha</th>
                 </tr>
@@ -81,13 +72,10 @@
     function generarpdf() {
         var Fecha1 = '';
         var Fecha2 = '';
-        var dato = "";
-        var url = "{{route('reporte.coordinacion.pdf',['dato','fecha1','fecha2'])}}";
+        var url = "{{route('reporte.general.pdf',['fecha1','fecha2'])}}";
         Fecha1 = $('#FechaInicio').val();
         Fecha2 = $('#FechaFin').val();
-        dato = $('#dato').val();
 
-        url = url.replace('dato', dato);
         if (Fecha1 != '' && Fecha2 != '') {
             url = url.replace('fecha1', Fecha1);
             url = url.replace('fecha2', Fecha2);
@@ -102,13 +90,11 @@
     function buscar() {
         var Fecha1 = '';
         var Fecha2 = '';
-        var dato = "";
-        var url = "{{route('reporte.coordinacion.consulta',['dato','fecha1','fecha2'])}}";
+        var url = "{{route('reporte.general.consulta',['fecha1','fecha2'])}}";
         Fecha1 = $('#FechaInicio').val();
         Fecha2 = $('#FechaFin').val();
-        dato = $('#dato').val();
 
-        url = url.replace('dato', dato);
+       
         if (Fecha1 != '' && Fecha2 != '') {
             url = url.replace('fecha1', Fecha1);
             url = url.replace('fecha2', Fecha2);
@@ -128,7 +114,7 @@
                 /*          console.log(datos); */
                 let contenido = '';
                 $.each(response, function(index, item) {
-                    contenido += '<tr><td> Nº' + item['folder'] + ' </td><td > ' + item['instituto'] + ' </td><td > ' + item['año'] + '</td><td > ' + item['responsable'] + '</td><td > ' + item['fecha'] + '</td></tr>';
+                    contenido += '<tr><td> ' + item['direccion'] + ' </td><td> ' + item['coordinacion'] + ' </td><td > ' + item['instituto'] + ' </td><td> N°'  + item['folder'] + '</td><td > ' + item['responsable'] + '</td><td > ' + item['fecha'] + '</td></tr>';
                 });
                 $('#tabla_consulta').html(contenido);
 
