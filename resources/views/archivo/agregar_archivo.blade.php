@@ -46,7 +46,7 @@
                 </select>
             </div>
             <div class="col-md-6">
-                <label for="direccion" class="form-label">Estante</label>
+                <label for="direccion" class="form-label">Estante <span class="text-danger">*</span></label>
                 <select id="inputState" class="form-select @error('direccion') is-invalid @enderror" name="estante">
                     <option disabled selected>---seleccione---</option>
                     @foreach($estantes as $estante)

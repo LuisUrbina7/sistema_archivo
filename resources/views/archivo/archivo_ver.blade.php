@@ -57,8 +57,7 @@
             <li class="list-group-item"><strong>Periodo :</strong> {{$folder->Periodo->periodo}}</li>
         </ul>
     </div>
-    <div class="col-12">
-        <h4>Detalles del Archivo..</h4>
+    <div class="col-12 mt-3">
         <table class="table table-striped">
             <thead>
                 <tr>

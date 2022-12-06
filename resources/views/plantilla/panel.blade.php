@@ -39,12 +39,7 @@
                                 Inicio
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('archivo','')}}">
-                                <i class="las la-archive fs-4"></i>
-                                Archivo
-                            </a>
-                        </li>
+                      
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('direccion')}}">
                                 <i class="las la-sitemap fs-4"></i>
@@ -55,6 +50,12 @@
                             <a class="nav-link" href="{{route('coordinacion')}}">
                                 <i class="las la-globe fs-4"></i>
                                 Coordinaciones
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('archivo')}}">
+                                <i class="las la-archive fs-4"></i>
+                                Archivo
                             </a>
                         </li>
                         <li class="nav-item">

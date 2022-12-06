@@ -14,9 +14,8 @@ align-items: center;
 justify-content: center;
 width: 100%;
 height: 100vh;
-background-color: #0093E9;
-background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
-;
+background: rgb(13,110,253);
+background: linear-gradient(173deg, rgba(13,110,253,1) 38%, rgba(0,55,133,1) 75%);
 
 
 }

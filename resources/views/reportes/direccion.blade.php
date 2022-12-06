@@ -37,8 +37,8 @@
         </div>
         <div class="col-md-3 d-flex align-items-center justify-content-center">
             <div class="btn-group ">
-                <a class="btn btn-primary" onclick="buscar()">Buscar</a>
-                <a class="btn btn-danger" onclick="generarpdf()">PDF</a>
+                <a class="btn btn-primary" onclick="buscar()"><i class="las la-search fs-4"></i></a>
+                <a class="btn btn-danger" onclick="generarpdf()"><i class="las la-file-pdf fs-4"></i></a>
             </div>
         </div>
     </div>

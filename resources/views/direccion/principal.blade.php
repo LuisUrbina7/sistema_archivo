@@ -34,9 +34,16 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                $contador=0;
+                @endphp
+
                 @foreach($direcciones as $direccion)
+                @php
+                $contador+=1;
+                @endphp
                 <tr>
-                    <th scope="row"></th>
+                    <th scope="row">{{$contador}}</th>
                     <td>{{$direccion->direccion}}</td>
                     <td>{{$direccion->encargado}}</td>
                     <td><a href="{{route('direccion.crear')}}" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#Modal-actualizar" onclick="indice('{{$direccion->id}},{{$direccion->direccion}},{{$direccion->encargado}}')"><i class="las la-edit"></i></a></td>
