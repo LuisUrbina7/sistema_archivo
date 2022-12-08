@@ -41,11 +41,11 @@ class ArchivoController extends Controller
 
         $archivos = Archivo::select('folder')->latest('folder')->first();
 
-        $indice = ['id' => 1, 'folder' => 1];
+        $indice = [ 'folder' => 1];
         if ($archivos) {
-            $indice = ['id' => $archivos->id + 1, 'folder' => $archivos->folder + 1];
+            $indice = [ 'folder' => $archivos->folder + 1];
         }
-
+          
         return view('archivo.agregar_archivo', compact('direcciones', 'coordinaciones', 'indice', 'periodos', 'estantes'));
     }
 

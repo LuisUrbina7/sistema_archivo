@@ -37,7 +37,7 @@
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
             <a href="{{route('perfil')}}" class="btn btn-sm btn-outline-secondary">
-            <i class="las la-arrow-left fs-2"></i>
+                <i class="las la-arrow-left fs-2"></i>
             </a>
         </div>
     </div>
@@ -83,7 +83,12 @@
             <label for="rol" class="form-label">{{ __('Permisos') }}</label>
 
             <select id="rol" class="form-select" name="rol">
-                <option value="{{ $usuario->rol }}">{{ $usuario->rol }}</option>
+
+                @php if($usuario->rol == 0){ @endphp
+                <option value="{{ $usuario->rol }}">Administrador</option>
+                @php }else{ @endphp
+                <option value="{{ $usuario->rol }}">Editor</option>
+                @php } @endphp
                 <option value="0">Administrador</option>
                 <option value="1">Editor</option>
             </select>
@@ -95,7 +100,7 @@
             @enderror
 
         </div>
-        
+
         <div class="col-md-6">
             <label for="password" class="form-label">{{ __('Nueva') }}</label>
             <input id="clave" type="password" class="form-control @error('clave') is-invalid @enderror" name="clave">

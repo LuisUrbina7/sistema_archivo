@@ -26,26 +26,26 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::group(['middleware' => 'auth'], function () {
 Route::get('/perfil', [UsuariosController::class, 'index'])->name('perfil');
 Route::post('/perfil/actualizar/{id}', [UsuariosController::class, 'actualizarPerfil'])->name('perfil.actualizar');
-Route::get('/usuarios', [UsuariosController::class, 'usuarios'])->name('usuarios');
-Route::get('/usuarios/crear', [UsuariosController::class, 'crear_formulario'])->name('usuarios.crear.formulario');
-Route::post('/usuarios/guardar', [UsuariosController::class, 'crear'])->name('usuarios.crear');
-Route::get('/usuarios/vista/{id}', [UsuariosController::class, 'usuarios_vista'])->name('usuarios.actualizar.formulario');
-Route::post('/usuarios/actualizar/{id}', [UsuariosController::class, 'actualizar_usuario'])->name('usuarios.actualizar');
-Route::get('/usuarios/borrar/{id}', [UsuariosController::class, 'borrar_usuario'])->name('usuarios.borrar');
+Route::get('/usuarios', [UsuariosController::class, 'usuarios'])->name('usuarios')->middleware('adm');
+Route::get('/usuarios/crear', [UsuariosController::class, 'crear_formulario'])->name('usuarios.crear.formulario')->middleware('adm');
+Route::post('/usuarios/guardar', [UsuariosController::class, 'crear'])->name('usuarios.crear')->middleware('adm');
+Route::get('/usuarios/vista/{id}', [UsuariosController::class, 'usuarios_vista'])->name('usuarios.actualizar.formulario')->middleware('adm');
+Route::post('/usuarios/actualizar/{id}', [UsuariosController::class, 'actualizar_usuario'])->name('usuarios.actualizar')->middleware('adm');
+Route::get('/usuarios/borrar/{id}', [UsuariosController::class, 'borrar_usuario'])->name('usuarios.borrar')->middleware('adm');
 
 Route::get('/direccion', [DireccionController::class, 'index'])->name('direccion');
 Route::get('/direccion/formulario-crear', [DireccionController::class, 'formulario_crear'])->name('direccion.formulario.crear');
 Route::post('/direccion/crear', [DireccionController::class, 'crear'])->name('direccion.crear');
 Route::post('/direccion/actualizar/{id}', [DireccionController::class, 'actualizar'])->name('direccion.actualizar');
-Route::get('/direccion/borrar/{id}', [DireccionController::class, 'borrar'])->name('direccion.borrar');
+Route::get('/direccion/borrar/{id}', [DireccionController::class, 'borrar'])->name('direccion.borrar')->middleware('adm');
 
 Route::get('/coordinacion', [CoordinacionController::class, 'index'])->name('coordinacion');
 Route::post('/coordinacion/crear', [CoordinacionController::class, 'crear'])->name('coordinacion.crear');
 Route::post('/coordinacion/actualizar/{id}', [CoordinacionController::class, 'actualizar'])->name('coordinacion.actualizar');
-Route::get('/coordinacion/borrar/{id}', [CoordinacionController::class, 'borrar'])->name('coordinacion.borrar');
+Route::get('/coordinacion/borrar/{id}', [CoordinacionController::class, 'borrar'])->name('coordinacion.borrar')->middleware('adm');
 
 
 Route::get('/archivo', [ArchivoController::class, 'index'])->name('archivo');
@@ -53,22 +53,22 @@ Route::get('/archivo/periodo/{id}', [ArchivoController::class, 'archivo_periodo'
 Route::get('/archivo/crear/formulario', [ArchivoController::class, 'formulario_crear'])->name('archivo.formulario.crear');
 Route::post('/archivo/crear/formulario/guardar', [ArchivoController::class, 'crear'])->name('archivo.crear');
 Route::get('/archivo/ver/{id}', [ArchivoController::class, 'archivo_ver'])->name('archivo.ver');
-Route::get('/archivo/borrar/{id}', [CoordinacionController::class, 'borrar'])->name('archivo.borrar');
+Route::get('/archivo/borrar/{id}', [ArchivoController::class, 'borrar'])->name('archivo.borrar')->middleware('adm');
 Route::get('/archivo/actualizar-folder/formulario/{id}', [ArchivoController::class, 'formulario_actualizar_folder'])->name('archivo.formulario.folder.actualizar');
 Route::post('/archivo/actualizar-folder/actualizar/{id}', [ArchivoController::class, 'actualizar_folder'])->name('archivo.folder.actualizar');
 
 Route::post('/archivo/agregar-detalles/', [ArchivoController::class, 'agregar_detalles'])->name('archivo.detalles.agregar');
 Route::post('/archivo/actualizar-detalles/actualizar/{id}', [ArchivoController::class, 'actualizar_detalles'])->name('archivo.detalles.actualizar');
-Route::get('/archivo/actualizar-detalles/borrar/{id}', [ArchivoController::class, 'borrar_detalles'])->name('archivo.detalles.borrar');
+Route::get('/archivo/actualizar-detalles/borrar/{id}', [ArchivoController::class, 'borrar_detalles'])->name('archivo.detalles.borrar')->middleware('adm');
 
-Route::post('/periodo/agregar', [PeriodoController::class, 'agregar'])->name('periodo.agregar');
-Route::post('/periodo/actualizar{id}', [PeriodoController::class, 'actualizar'])->name('periodo.actualizar');
-Route::get('/periodo/borrar/{id}', [PeriodoController::class, 'borrar'])->name('periodo.borrar');
+Route::post('/periodo/agregar', [PeriodoController::class, 'agregar'])->name('periodo.agregar')->middleware('adm');
+Route::post('/periodo/actualizar{id}', [PeriodoController::class, 'actualizar'])->name('periodo.actualizar')->middleware('adm');
+Route::get('/periodo/borrar/{id}', [PeriodoController::class, 'borrar'])->name('periodo.borrar')->middleware('adm');
 
 Route::get('/estantes', [EstantesController::class, 'index'])->name('estantes');
 Route::post('/estantes/agregar', [EstantesController::class, 'agregar'])->name('estante.agregar');
 Route::post('/estantes/actualizar/{id}', [EstantesController::class, 'actualizar'])->name('estante.actualizar');
-Route::get('/estantes/borrar/{id}', [EstantesController::class, 'borrar'])->name('estante.borrar');
+Route::get('/estantes/borrar/{id}', [EstantesController::class, 'borrar'])->name('estante.borrar')->middleware('adm');
 
 Route::get('/reportes/general',[ReportesController::class,'index_general'])->name('reporte.general');
 Route::get('/reportes/general/consulta/{fecha1}/{fecha2}',[ReportesController::class,'general_consulta'])->name('reporte.general.consulta');
@@ -85,3 +85,5 @@ Route::get('/reportes/coordinacion/pdf/{nombre}/{fecha1}/{fecha2}',[ReportesCont
 Route::get('/reportes/etiqueta/{id}',[ReportesController::class,'etiqueta'])->name('reporte.etiqueta.pdf');
 
 Route::get('/menu', [App\Http\Controllers\HomeController::class, 'index'])->name('menu');
+
+});

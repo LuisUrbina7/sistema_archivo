@@ -13,14 +13,16 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Usuarios</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
+        @php if (auth()->user()->rol == '0'){ @endphp
         <div class="btn-group me-2">
             <a class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#Modal-agregar">
                 <i class="las la-user-plus fs-2"></i>
             </a>
-            <a  class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#Modal-listar">
+            <a class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#Modal-listar">
                 <i class="las la-list-ul fs-2"></i>
             </a>
         </div>
+        @php } @endphp
     </div>
 </div>
 @if ( session('nombre') )
@@ -53,7 +55,7 @@
         @csrf
         <div class="col-md-6">
             <label for="nombre" class="form-label">{{ __('Nombre') }}</label>
-            <input  type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ Auth::user()->name }}">
+            <input type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ Auth::user()->name }}">
 
             @error('nombre')
             <span class="invalid-feedback" role="alert">
@@ -64,7 +66,7 @@
         </div>
         <div class="col-md-6">
             <label for="name" class="form-label">{{ __('Usuario') }}</label>
-            <input  type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ Auth::user()->username }}">
+            <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ Auth::user()->username }}">
 
             @error('username')
             <span class="invalid-feedback" role="alert">
@@ -74,8 +76,8 @@
 
         </div>
         <div class="col-12">
-            <label for="email" class="form-label">{{ __('Email Address') }}</label>
-            <input  type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}" required autocomplete="email">
+            <label for="email" class="form-label">{{ __('Email') }}</label>
+            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}" required autocomplete="email">
             @error('email')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -83,12 +85,16 @@
             @enderror
 
         </div>
-
+        @php if (auth()->user()->rol == '0'){ @endphp
         <div class="col-md-12">
             <label for="rol" class="form-label">{{ __('Permisos') }}</label>
 
-            <select  class="form-select" name="rol">
-                <option value="{{ Auth::user()->rol }}">--Permiso--</option>
+            <select class="form-select" name="rol">
+                @php if(auth()->user()->rol == 0){ @endphp
+                <option value="{{ Auth::user()->rol }}">Administrador</option>
+                @php }else{ @endphp
+                <option value="{{ Auth::user()->rol }}">Editor</option>
+                @php } @endphp
                 <option value="0">Administrador</option>
                 <option value="1">Editor</option>
             </select>
@@ -100,9 +106,10 @@
             @enderror
 
         </div>
+        @php } @endphp
         <div class="col-md-12">
             <label for="rol" class="form-label">{{ __('Clave Vieja') }}</label>
-            <input  type="password" class="form-control @error('clave_vieja') is-invalid @enderror" name="clave_vieja">
+            <input type="password" class="form-control @error('clave_vieja') is-invalid @enderror" name="clave_vieja">
 
             @error('clave_vieja')
             <span class="invalid-feedback" role="alert">
@@ -112,7 +119,7 @@
         </div>
         <div class="col-md-6">
             <label for="password" class="form-label">{{ __('Nueva') }}</label>
-            <input  type="password" class="form-control @error('clave') is-invalid @enderror" name="clave">
+            <input type="password" class="form-control @error('clave') is-invalid @enderror" name="clave">
             @error('clave')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -122,7 +129,7 @@
         <div class="col-md-6">
             <label for="password-confirm" class="form-label">{{ __('Confirmar') }}</label>
 
-            <input  type="password" class="form-control" name="confirmacion_clave">
+            <input type="password" class="form-control" name="confirmacion_clave">
 
         </div>
         <div class="col-12">
@@ -258,6 +265,12 @@
                 console.log(response);
                 let contenido = '';
                 $.each(response, function(index, item) {
+                    if(item['rol']=='0'){
+                        item['rol'] = 'Administrador';
+                    }else{
+                        item['rol'] = 'Editor';
+
+                    }
                     contenido += '<tr>\
                             <th scope="row">' + index + '</th>\
                             <td>' + item['name'] + '</td>\
@@ -296,14 +309,14 @@
                     if (response == 'excelente') {
                         alerta += '  <div class="alert alert-success" role="alert">\
                         <strong>Felicitaciones </strong>\
-                        usuario agregado correctamente.. </div>';  
-                    $('#contenedor_alerta').html(alerta);
-                    location.reload();
+                        usuario agregado correctamente.. </div>';
+                        $('#contenedor_alerta').html(alerta);
+                        location.reload();
                     } else {
                         alerta += '  <div class="alert alert-danger" role="alert">\
                         <strong>Error </strong>\
                         ocurrio algo.. </div>';
-                       
+
                         $('#contenedor_alerta').html(alerta);
                     }
 

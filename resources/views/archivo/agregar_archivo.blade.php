@@ -13,7 +13,6 @@
     <h1 class="h2">Archivo <span class="text-muted fs-6"> /paso 1</span></h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="me-2">
-            <p>Registro n# : <strong> {{$indice['id']}}</strong></p>
             <p>Folder n# : <strong> {{$indice['folder']}}</strong></p>
         </div>
     </div>

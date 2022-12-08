@@ -15,7 +15,7 @@ class CreateArchivosDetallesTable extends Migration
     {
         Schema::create('archivos_detalles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('referencia')->constrained('archivos')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('referencia')->constrained('archivos')->cascadeOnUpdate()->cascadeOnDelete();
             $table->char('documento',50);
             $table->integer('folios');
             $table->char('solicitud',50);

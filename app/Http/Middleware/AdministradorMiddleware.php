@@ -16,6 +16,10 @@ class AdministradorMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        if( auth()->check() && auth()->user()->rol == '0'){
+
+            return $next($request);
+        }
+        return redirect('/menu');
     }
 }
